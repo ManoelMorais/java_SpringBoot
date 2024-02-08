@@ -1,9 +1,8 @@
-package com.rocketseat.projeto_rocket.modules.students.entities;
+package com.rocketseat.projeto_rocket.modules.questions.entities;
 
 import java.time.LocalDateTime;
-import java.util.List;
-//import java.util.List;
 import java.util.UUID;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -13,38 +12,29 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Data;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "certification_student")
-public class CertificationStudentEntity {
+@Entity(name = "question")
+public class QuestionEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
-  @Column(length = 100)
+  @Column(length = 30)
   private String technology;
-  
-  @Column(length = 10)
-  private int grate;
 
-  @JoinColumn(name = "students_id")
-  private UUID studentsID;
-
-  @ManyToOne
-  @JoinColumn(name = "students_id", insertable = false, updatable = false)
-  private StudenEntity StudenEntity;
+  private String description;
 
   @OneToMany
-  @JoinColumn(name = "answers_certification_id",  insertable = false, updatable = false)
-  List<AnswersCertificationEntity> answersCertificationEntity;
+  @JoinColumn(name = "question_id")
+  private List<AlternativeEntity> alternatives;
 
   @CreationTimestamp
   private LocalDateTime createdAt;
