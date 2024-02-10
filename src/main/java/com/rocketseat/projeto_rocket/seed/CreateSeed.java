@@ -28,7 +28,7 @@ public class CreateSeed {
   }
 
   public void run(String... args) {
-      executeSqlFile("src/main/resources/db/migration.sql");
+      executeSqlFile("src/main/resources/create.sql");
   }
 
   private void executeSqlFile(String filePath) {

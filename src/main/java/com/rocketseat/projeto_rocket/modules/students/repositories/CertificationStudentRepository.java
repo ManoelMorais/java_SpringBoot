@@ -12,4 +12,7 @@ public interface CertificationStudentRepository extends JpaRepository<Certificat
 
   @Query("SELECT c FROM certification_student c INNER JOIN c.StudenEntity s WHERE s.email = :email AND c.technology = :technology")
   List<CertificationStudentEntity> findByEmailAndTechnology(String email, String technology);
+
+  @Query("SELECT c FROM certification_student c ORDER BY c.grate DESC LIMIT 10")
+  List<CertificationStudentEntity> findTop10ByOnderGradeDesc();
 }

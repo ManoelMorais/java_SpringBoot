@@ -2,11 +2,13 @@ package com.rocketseat.projeto_rocket.modules.students.entities;
 
 import java.time.LocalDateTime;
 import java.util.List;
-//import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,6 +18,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -23,6 +26,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "certification_student")
+@Builder
 public class CertificationStudentEntity {
 
   @Id
@@ -35,15 +39,17 @@ public class CertificationStudentEntity {
   @Column(length = 10)
   private int grate;
 
-  @JoinColumn(name = "students_id")
+  @Column(name = "students_id")
   private UUID studentsID;
 
   @ManyToOne
   @JoinColumn(name = "students_id", insertable = false, updatable = false)
+  @JsonManagedReference
   private StudenEntity StudenEntity;
 
-  @OneToMany
+  @OneToMany(cascade =  CascadeType.ALL)  
   @JoinColumn(name = "answers_certification_id",  insertable = false, updatable = false)
+  @JsonManagedReference
   List<AnswersCertificationEntity> answersCertificationEntity;
 
   @CreationTimestamp
